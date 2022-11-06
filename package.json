@@ -1,0 +1,30 @@
+{
+  "name": "service-manticore",
+  "version": "1.0.0",
+  "description": "@molfar manticore service",
+  "main": "service.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdc-molfar/service-manticore.git"
+  },
+  "keywords": [
+    "mqrabbit",
+    "manticore"
+  ],
+  "author": "Artem Soboliev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wdc-molfar/service-manticore/issues"
+  },
+  "homepage": "https://github.com/wdc-molfar/service-manticore#readme",
+  "dependencies": {
+    "@molfar/service-chassis": "github:wdc-molfar/service-chassis",
+    "service-manti": "github:wdc-molfar/manticore-bridge"
+  },
+  "manticore": {
+    "url": "http://10.6.12.86:9308"
+  }
+}

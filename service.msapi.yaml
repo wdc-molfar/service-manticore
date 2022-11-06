@@ -1,0 +1,101 @@
+msapi: "1.0.1"
+
+metadata: 
+    id: "@molfar/service-manticore"
+    title: "@molfar source service manticore" 
+
+
+components:
+    schemas:
+        INPUT:
+            type: object
+            
+            required:
+                - schedule
+                - scraper
+                - langDetector
+                - fasttext
+            
+            properties:
+                
+                schedule:
+                    type: object
+                    required:
+                        - id
+                        - source
+                        - activatedAt
+                    properties:
+                        id:
+                            type: string
+                        source: 
+                            type: string
+                        activatedAt: 
+                            type: string
+                            format: date-time
+                    additionalProperties: true
+                
+                scraper:
+                    type: object
+                    required: 
+                        - message
+                    properties:
+                        message:
+                            type: object                    
+                            required:
+                                - text
+                                - publishedAt
+                            properties:
+                                text:
+                                    type: string
+                                publishedAt:
+                                    type: string         
+                            additionalProperties: true
+                    additionalProperties: true
+
+                langDetector:
+                    type: object
+                    required: 
+                        - language
+                    properties:
+                         language:
+                            type: object                    
+                            required:
+                                - locale
+                            properties:
+                                locale:
+                                    type: string  
+                            additionalProperties: true
+                    additionalProperties: true
+                
+                fasttext:
+                    type: object
+            
+            additionalProperties: true
+                  
+        
+service:
+    # The scheduler will recive message from
+    manticore:
+        url: "http://10.6.12.86:9308"
+
+    consume:
+        amqp: 
+            url: "amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg"
+        
+        queue:
+            name: fasttext
+            exchange:
+                name: lang-detector
+                mode: fanout
+                options:
+                    durable: true
+                    persistent: true
+            options:
+                noAck: false 
+                exclusive: false   
+
+        message:
+            $ref: "#/components/schemas/INPUT"    
+
+
+    
